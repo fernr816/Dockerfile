@@ -1,3 +1,3 @@
 # Dockerfile
 ## keras_mnist
-keras + tensorflow-gpu + mnist_cnn
+Anaconda3 + keras + tensorflow-gpu + mnist_cnn
