@@ -1,0 +1,27 @@
+FROM nvidia/cuda:9.0-cudnn7-devel
+
+# apt
+RUN apt update
+RUN apt install -y bzip2 wget git imagemagick
+
+# install Anaconda3
+RUN wget -q https://repo.continuum.io/archive/Anaconda3-5.0.1-Linux-x86_64.sh
+RUN touch .bashrc
+RUN bash Anaconda3-5.0.1-Linux-x86_64.sh -b
+ENV PATH $PATH:/root/anaconda3/bin
+
+# pip install
+RUN pip install tensorflow-gpu==1.12.0 keras pillow matplotlib
+
+# git clone keras-yolo3
+RUN git clone https://github.com/qqwweee/keras-yolo3.git
+WORKDIR /keras-yolo3
+
+# download weights
+RUN wget -q https://pjreddie.com/media/files/yolov3.weights
+RUN python convert.py yolov3.cfg yolov3.weights model_data/yolo.h5
+
+# mount dir(外から画像を置く)
+RUN mkdir input_img
+
+CMD ["python", "yolo_video.py", "--image"]
