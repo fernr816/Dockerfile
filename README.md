@@ -12,3 +12,14 @@ docker run -it --rm \
 -e DISPLAY=$DISPLAY \
 --net host \
 keras_yolo3
+
+## sample_openpose
+CUDA9.0 + Anaconda3 + openpose(with python API)
+
+### usage
+docker run -it --rm \
+-v ~/path/to/input/:/openpose/input \
+-v $HOME/.Xauthority:/root/.Xauthority \
+-e DISPLAY=$DISPLAY \
+--net host \
+sample_openpose
